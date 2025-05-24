@@ -64,7 +64,12 @@ app.delete("/products/:id", (request, response) => {
   // Delete article
   let id = request.params.id;
   // Simulation of database
-  let Product = Products.filter((article) => article.id != id);
-  Products = Product;
-  response.send(Product);
+  let Product = Products.find((item) => item.id == id);
+  if (!Product) {
+    response.send("Product not found");
+  } else {
+    let Product = Products.filter((article) => article.id != id);
+    Products = Product;
+    response.send(Product);
+  }
 });
