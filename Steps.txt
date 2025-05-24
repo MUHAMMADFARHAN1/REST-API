@@ -1,0 +1,8 @@
+1. Initialize npm project and install express:
+- npm init -y
+- npm install express
+
+2.Launch simple express server:
+- Create simple file index.js having express server listening to required port (node index.js)
+- localhost:PORT should show cannot get and Postman header will show server technology.
+
