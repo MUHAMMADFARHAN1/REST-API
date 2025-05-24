@@ -46,3 +46,11 @@ app.get("/products", (request, response) => {
   // fetch products from database
   response.send(Products);
 });
+
+app.get("/products/:name", (request, response) => {
+  // fetch Products from database
+  let name = request.params.name;
+  // Simulation of database
+  let Product = Products.find((item) => item.name == name);
+  response.send(Product);
+});
