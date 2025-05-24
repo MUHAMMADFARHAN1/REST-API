@@ -15,6 +15,7 @@ app.use(express.json());
 // Simulation of database
 let Products = [
   {
+    id: 1,
     name: "First",
     description: "Product 1",
     price: "10",
@@ -22,6 +23,7 @@ let Products = [
     createdAt: "01/12/2022",
   },
   {
+    id: 2,
     name: "Second",
     description: "Product 2",
     price: "20",
@@ -29,6 +31,7 @@ let Products = [
     createdAt: "11/12/2022",
   },
   {
+    id: 3,
     name: "Third",
     description: "Product 3",
     price: "30",
@@ -47,10 +50,21 @@ app.get("/products", (request, response) => {
   response.send(Products);
 });
 
-app.get("/products/:name", (request, response) => {
+app.get("/products/:id", (request, response) => {
   // fetch Products from database
-  let name = request.params.name;
+  let id = request.params.id;
   // Simulation of database
-  let Product = Products.find((item) => item.name == name);
+  let Product = Products.find((item) => item.id == id);
+  if (!Product) {
+    response.send("Product not found");
+  } else response.send(Product);
+});
+
+app.delete("/products/:id", (request, response) => {
+  // Delete article
+  let id = request.params.id;
+  // Simulation of database
+  let Product = Products.filter((article) => article.id != id);
+  Products = Product;
   response.send(Product);
 });
