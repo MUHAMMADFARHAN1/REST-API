@@ -8,3 +8,17 @@
 
 3. Get request Implementation:
 - check the GET request response in the browser as well as Postman for the Endpoint Implemented.
+
+4. Get and Delete are easy to implement with array manipulation
+
+5. Implement Post with Authorization:
+- send Authorization key in the header of request with right value if set
+- add json body to the request as follow in the Postman:
+  {
+    "name": "Third",
+    "description": "Product 3",
+    "price": "30",
+    "quantity": "15",
+    "createdAt": "21/12/2022"
+  }
+- set the body option to raw and json.

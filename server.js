@@ -50,6 +50,7 @@ app.get("/products", (request, response) => {
   response.send(Products);
 });
 
+//Get Product by Id
 app.get("/products/:id", (request, response) => {
   // fetch Products from database
   let id = request.params.id;
@@ -60,6 +61,7 @@ app.get("/products/:id", (request, response) => {
   } else response.send(Product);
 });
 
+//Delete product by Id
 app.delete("/products/:id", (request, response) => {
   // Delete article
   let id = request.params.id;
@@ -72,4 +74,18 @@ app.delete("/products/:id", (request, response) => {
     Products = Product;
     response.send(Product);
   }
+});
+
+app.post("/products", (request, response) => {
+  // Create new article
+  let headers = request.headers;
+  let body = request.body;
+  //   console.log(headers);
+  //   console.log(body);
+  if (headers.authorization == "Farhan123") {
+    // Simulation of database
+    Products.push({ id: Products.length + 1, ...body });
+    // response.send("Article created succesfully");
+    response.send(Products);
+  } else response.send("You cannot create an article");
 });
