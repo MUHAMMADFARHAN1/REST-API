@@ -49,6 +49,7 @@ app.delete("/products/:id", (request, response) => {
     //   console.log(err);
     // }
 
+    //splice did not work
     // let index = Products.findIndex((product) => product.id === id);
     // if (index !== -1) {
     //   Products.splice(index, 1);
@@ -96,15 +97,28 @@ app.put("/products/:id", auth, validateBody, (request, response) => {
   if (!Product) {
     response.send("Product not found");
   } else {
-    Products = Products.map((Product) => {
-      if (Product.id == id)
-        return {
-          id,
-          ...Product,
-          ...body,
-        };
-      return Product;
-    });
+    // Products = Products.map((Product) => {
+    //   if (Product.id == id)
+    //     return {
+    //       id,
+    //       ...Product,
+    //       ...body,
+    //     };
+    //   return Product;
+    // });
+    console.log(body.name);
+    const index = Products.findIndex(
+      (product) => product.id.toString() === id.toString()
+    );
+    console.log(index);
+    if (index !== -1) {
+      Products[index].name = body.name;
+      Products[index].description = body.description;
+      Products[index].price = body.price;
+      Products[index].quantity = body.quantity;
+      Products[index].createdAt = body.createdAt;
+      // console.log(body.name);
+    }
     response.send(Products);
   }
 });

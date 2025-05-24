@@ -34,3 +34,9 @@
     "createdAt": "21/12/2022"
   }
 - set the body option to raw and json.
+
+
+For Order:
+we will have post (to create order)  and get(get the cart).
+
+prodyuct we want should be in body as list of ids.
