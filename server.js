@@ -1,4 +1,5 @@
 import express from "express";
+import { auth } from "./auth-middleware.js";
 
 ///////////////////////Server Basic Info/////////////////////////////
 const PORT = 5001;
@@ -77,7 +78,7 @@ app.delete("/products/:id", (request, response) => {
 });
 
 //Post operation to be implemneted here as well
-app.post("/products", validateBody, (request, response) => {
+app.post("/products", auth, validateBody, (request, response) => {
   // Create new article
   let headers = request.headers;
   let body = request.body;
@@ -92,7 +93,7 @@ app.post("/products", validateBody, (request, response) => {
 });
 
 //Put operation to update an existing record if it exists
-app.put("/products/:id", validateBody, (request, response) => {
+app.put("/products/:id", auth, validateBody, (request, response) => {
   // Update article
   let id = request.params.id;
   let body = request.body;
