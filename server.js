@@ -77,7 +77,7 @@ app.delete("/products/:id", (request, response) => {
 });
 
 //Post operation to be implemneted here as well
-app.post("/products", (request, response) => {
+app.post("/products", validateBody, (request, response) => {
   // Create new article
   let headers = request.headers;
   let body = request.body;
@@ -92,7 +92,7 @@ app.post("/products", (request, response) => {
 });
 
 //Put operation to update an existing record if it exists
-app.put("/products/:id", (request, response) => {
+app.put("/products/:id", validateBody, (request, response) => {
   // Update article
   let id = request.params.id;
   let body = request.body;
@@ -112,4 +112,32 @@ app.put("/products/:id", (request, response) => {
     });
     response.send(Products);
   }
+});
+
+///////////////////////////////////Validation Middleware////////////////////////
+function validateFilters(request, response, next) {
+  let { category } = request.params;
+  if (!category) return response.status(400).send("Category is missing");
+  next();
+}
+
+////Body Validation
+function validateBody(request, response, next) {
+  if (!request.body) return response.status(400).send("Empty Request");
+  // let { body } = request.body;
+  // let { id } = request.params;
+  if (!request.body.name) return response.status(400).send("Name Missing");
+  if (!request.body.description)
+    return response.status(400).send("Description Missing");
+  if (!request.body.price) return response.status(400).send("Price Missing");
+  if (!request.body.quantity)
+    return response.status(400).send("Quantity Missing");
+  if (!request.body.createdAt) return response.status(400).send("Date Missing");
+  next();
+}
+
+//////////////////////// Error Handling Middleware for the whole app//////////////
+app.use((err, request, response, next) => {
+  if (err) return response.status(500).send("Server Error");
+  next();
 });
