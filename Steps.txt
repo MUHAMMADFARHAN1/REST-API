@@ -22,3 +22,15 @@
     "createdAt": "21/12/2022"
   }
 - set the body option to raw and json.
+
+6. Implement Put to update a record:
+- send the request from postman with right structure as below.
+- add json body to the request as follow in the Postman:
+  {
+    "name": "Third",
+    "description": "Product 3",
+    "price": "30",
+    "quantity": "15",
+    "createdAt": "21/12/2022"
+  }
+- set the body option to raw and json.

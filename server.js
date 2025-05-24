@@ -76,6 +76,7 @@ app.delete("/products/:id", (request, response) => {
   }
 });
 
+//Post operation to be implemneted here as well
 app.post("/products", (request, response) => {
   // Create new article
   let headers = request.headers;
@@ -88,4 +89,27 @@ app.post("/products", (request, response) => {
     // response.send("Article created succesfully");
     response.send(Products);
   } else response.send("You cannot create an article");
+});
+
+//Put operation to update an existing record if it exists
+app.put("/products/:id", (request, response) => {
+  // Update article
+  let id = request.params.id;
+  let body = request.body;
+  // Simulation of database
+  let Product = Products.find((item) => item.id == id);
+  if (!Product) {
+    response.send("Product not found");
+  } else {
+    Products = Products.map((Product) => {
+      if (Product.id == id)
+        return {
+          id,
+          ...Product,
+          ...body,
+        };
+      return Product;
+    });
+    response.send(Products);
+  }
 });
