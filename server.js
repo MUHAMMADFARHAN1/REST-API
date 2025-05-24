@@ -1,5 +1,6 @@
 import express from "express";
 import { auth } from "./auth-middleware.js";
+import { Products, Order } from "./Database.js";
 
 ///////////////////////Server Basic Info/////////////////////////////
 const PORT = 5001;
@@ -11,38 +12,6 @@ app.listen(PORT, () => {
 
 // Add this to be able to read body
 app.use(express.json());
-
-//////////////////////Database Simulation////////////////////////////
-// Simulation of database
-let Products = [
-  {
-    id: 1,
-    name: "First",
-    description: "Product 1",
-    price: "10",
-    quantity: "5",
-    createdAt: "01/12/2022",
-  },
-  {
-    id: 2,
-    name: "Second",
-    description: "Product 2",
-    price: "20",
-    quantity: "10",
-    createdAt: "11/12/2022",
-  },
-  {
-    id: 3,
-    name: "Third",
-    description: "Product 3",
-    price: "30",
-    quantity: "15",
-    createdAt: "21/12/2022",
-  },
-];
-
-// Order will be empty initially as thez will be dispatched later on
-let Order = [];
 
 //////////////////////////////////Products Endpoint////////////////////////////////////////
 // products, GET, no body, no headers
@@ -67,13 +36,38 @@ app.delete("/products/:id", (request, response) => {
   // Delete article
   let id = request.params.id;
   // Simulation of database
-  let Product = Products.find((item) => item.id == id);
-  if (!Product) {
+  let Product_found = Products.find((item) => item.id == id);
+  if (!Product_found) {
     response.send("Product not found");
   } else {
-    let Product = Products.filter((article) => article.id != id);
-    Products = Product;
-    response.send(Product);
+    //Exports are contant and cannot be removed
+    // try {
+    //   let Product_filter = Products.filter((article) => article.id != id);
+    //   Products = Product_filter;
+    //   response.send(Products);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
+    // let index = Products.findIndex((product) => product.id === id);
+    // if (index !== -1) {
+    //   Products.splice(index, 1);
+    //   Products.delete(index);
+    // }
+
+    // https://stackoverflow.com/questions/62378228/how-to-change-es6-imported-array
+
+    let Product_filter = Products.filter((article) => article.id != id);
+
+    Products.length = 0;
+
+    for (let i = 0; i < Product_filter.length; i++) {
+      Products.push(Product_filter[i]);
+    }
+
+    // Products.push(Product_filter);
+    // console.log(Product_filter);
+    response.send(Products);
   }
 });
 
