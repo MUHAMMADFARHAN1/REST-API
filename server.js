@@ -8,9 +8,12 @@ app.listen(PORT, () => {
   console.log("server is running...");
 });
 
+// Add this to be able to read body
+app.use(express.json());
+
 //////////////////////Database Simulation////////////////////////////
 // Simulation of database
-let Product = [
+let Products = [
   {
     name: "First",
     description: "Product 1",
@@ -36,3 +39,10 @@ let Product = [
 
 // Order will be empty initially as thez will be dispatched later on
 let Order = [];
+
+//////////////////////////////////Products Endpoint////////////////////////////////////////
+// products, GET, no body, no headers
+app.get("/products", (request, response) => {
+  // fetch products from database
+  response.send(Products);
+});

@@ -6,3 +6,5 @@
 - Create simple file index.js having express server listening to required port (node index.js)
 - localhost:PORT should show cannot get and Postman header will show server technology.
 
+3. Get request Implementation:
+- check the GET request response in the browser as well as Postman for the Endpoint Implemented.
